@@ -41,13 +41,13 @@ export class ProductsController {
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('productId') productId: string) {
+  getProduct(@Param('productId', ParseIntPipe) productId: number) {
     // @Res() response: Response
     // response.status(200).send({
     //   message: `product ${productId}`,
     // });
 
-    return this.productsService.findOne(+productId);
+    return this.productsService.findOne(productId);
   }
 
   @Post()
