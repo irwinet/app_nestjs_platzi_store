@@ -13,10 +13,10 @@ import {
   // ParseIntPipe,
 } from '@nestjs/common';
 
-import { ParseIntPipe } from './../common/parse-int/parse-int.pipe';
+import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
 import { Response } from 'express';
 import { ProductsService } from '../services/products.service';
-import { CreateProductDto, UpdateProductDto } from './../dtos/products.dto';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 @Controller('products')
 export class ProductsController {
