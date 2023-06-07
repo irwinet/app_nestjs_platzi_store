@@ -5,19 +5,13 @@ import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
-
-const API_KEY = '12345';
-const API_KEY_POD = '54321';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [HttpModule, ProductsModule, UsersModule],
+  imports: [HttpModule, ProductsModule, UsersModule, DatabaseModule],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: 'API_KEY',
-      useValue: process.env.NODE_ENV === 'prod' ? API_KEY_POD : API_KEY,
-    },
     {
       provide: 'TASKS',
       useFactory: async (http: HttpService) => {
