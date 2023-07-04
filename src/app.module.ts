@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
-import { Client } from 'pg';
 
 import * as Joi from 'joi';
 
@@ -13,20 +12,6 @@ import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './database/database.module';
 import { enviroments } from './enviroments';
 import config from './config';
-
-const client = new Client({
-  user: 'root',
-  host: 'localhost',
-  database: 'my_db',
-  password: '123456',
-  port: 5433,
-});
-
-client.connect();
-client.query('SELECT * FROM tasks', (err, res) => {
-  console.log(err);
-  console.log(res.rows);
-});
 
 @Module({
   imports: [
