@@ -21,6 +21,8 @@ const API_KEY_POD = '54321';
           username: user,
           password,
           database: dbName,
+          synchronize: true,
+          autoLoadEntities: true,
         };
       },
     }),
