@@ -55,36 +55,36 @@ export class ProductsController {
     return this.productsService.findOne(productId);
   }
 
-  // @Post()
-  // create(@Body() payload: CreateProductDto) {
-  //   // return {
-  //   //   message: 'Accion de crear',
-  //   //   payload,
-  //   // };
+  @Post()
+  create(@Body() payload: CreateProductDto) {
+    // return {
+    //   message: 'Accion de crear',
+    //   payload,
+    // };
 
-  //   return this.productsService.create(payload);
-  // }
+    return this.productsService.create(payload);
+  }
 
-  // @Put(':id')
-  // update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() payload: UpdateProductDto,
-  // ) {
-  //   // return {
-  //   //   id,
-  //   //   payload,
-  //   // };
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto,
+  ) {
+    // return {
+    //   id,
+    //   payload,
+    // };
 
-  //   return this.productsService.update(id, payload);
-  // }
+    return this.productsService.update(id, payload);
+  }
 
-  // @Delete(':id')
-  // delete(@Param('id', ParseIntPipe) id: number) {
-  //   // return {
-  //   //   id,
-  //   //   delete: true,
-  //   //   count: 1,
-  //   // };
-  //   return this.productsService.delete(id);
-  // }
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    // return {
+    //   id,
+    //   delete: true,
+    //   count: 1,
+    // };
+    return this.productsService.delete(id);
+  }
 }
