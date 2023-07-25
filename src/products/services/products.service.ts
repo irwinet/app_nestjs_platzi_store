@@ -25,8 +25,8 @@ export class ProductsService {
     return this.productRepo.find();
   }
 
-  findOne(id: number) {
-    const product = this.productRepo.findOneBy({ id });
+  async findOne(id: number) {
+    const product = await this.productRepo.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
@@ -50,8 +50,8 @@ export class ProductsService {
     return this.productRepo.save(product);
   }
 
-  delete(id: number) {
-    const product = this.productRepo.findOneBy({ id });
+  async delete(id: number) {
+    const product = await this.productRepo.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
