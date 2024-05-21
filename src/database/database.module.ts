@@ -13,20 +13,9 @@ const API_KEY_POD = '54321';
     TypeOrmModule.forRootAsync({
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        // const { user, host, dbName, password, port } = configService.postgres;
-        // return {
-        //   type: 'postgres',
-        //   host,
-        //   port,
-        //   username: user,
-        //   password,
-        //   database: dbName,
-        //   synchronize: true,
-        //   autoLoadEntities: true,
-        // };
-        const { user, host, dbName, password, port } = configService.mysql;
+        const { user, host, dbName, password, port } = configService.postgres;
         return {
-          type: 'mysql',
+          type: 'postgres',
           host,
           port,
           username: user,
@@ -35,6 +24,17 @@ const API_KEY_POD = '54321';
           synchronize: true,
           autoLoadEntities: true,
         };
+        // const { user, host, dbName, password, port } = configService.mysql;
+        // return {
+        //   type: 'mysql',
+        //   host,
+        //   port,
+        //   username: user,
+        //   password,
+        //   database: dbName,
+        //   synchronize: true,
+        //   autoLoadEntities: true,
+        // };
       },
     }),
   ],
