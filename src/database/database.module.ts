@@ -21,7 +21,8 @@ const API_KEY_POD = '54321';
           username: user,
           password,
           database: dbName,
-          synchronize: true,
+          // synchronize: true,
+          synchronize: false,
           autoLoadEntities: true,
         };
         // const { user, host, dbName, password, port } = configService.mysql;
