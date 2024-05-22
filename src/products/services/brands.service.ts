@@ -1,24 +1,28 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Brand } from '../entities/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BrandsService {
-  private counterId = 1;
-  private brands: Brand[] = [
-    {
-      id: 1,
-      name: 'Brand 1',
-      image: 'url',
-    },
-  ];
+  // private counterId = 1;
+  // private brands: Brand[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Brand 1',
+  //     image: 'url',
+  //   },
+  // ];
+
+  constructor(@InjectRepository(Brand) private brandsRepo: Repository<Brand>) {}
 
   findAll() {
-    return this.brands;
+    return this.brandsRepo.find();
   }
 
   findOne(id: number) {
-    const brand = this.brands.find((item) => item.id === id);
+    const brand = this.brandsRepo.findOne(id);
     if (!brand) {
       throw new NotFoundException(`Brand #${id} not found`);
     }
@@ -26,37 +30,18 @@ export class BrandsService {
   }
 
   create(payload: CreateBrandDto) {
-    this.counterId = this.counterId + 1;
-    const newBrand = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.brands.push(newBrand);
-    return newBrand;
+    const newBrand = this.brandsRepo.create(payload);
+    return this.brandsRepo.save(newBrand);
   }
 
-  update(id: number, payload: UpdateBrandDto) {
-    const brandUpdate = this.findOne(id);
-    if (brandUpdate) {
-      const index = this.brands.findIndex((item) => item.id === id);
-      this.brands[index] = {
-        ...brandUpdate,
-        ...payload,
-      };
+  async update(id: number, payload: UpdateBrandDto) {
+    const brandUpdate = await this.brandsRepo.findOne(id);
+    this.brandsRepo.merge(brandUpdate, payload);
 
-      return this.brands[index];
-    }
-
-    return null;
+    return this.brandsRepo.save(brandUpdate);
   }
 
   delete(id: number) {
-    const index = this.brands.findIndex((item) => item.id === id);
-    if (index == -1) {
-      throw new NotFoundException(`Brand #${id} not found`);
-    }
-
-    this.brands.splice(index, 1);
-    return true;
+    return this.brandsRepo.delete(id);
   }
 }
