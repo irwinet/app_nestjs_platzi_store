@@ -1,6 +1,14 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { OrderItemService } from '../services/order-item.service';
-import { CreateOrderItemDto } from '../dtos/order-item.dto';
+import { CreateOrderItemDto, UpdateOrderItemDto } from '../dtos/order-item.dto';
 
 @Controller('order-item')
 export class OrderItemController {
@@ -9,5 +17,18 @@ export class OrderItemController {
   @Post()
   create(@Body() payload: CreateOrderItemDto) {
     return this.itemsService.create(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateOrderItemDto,
+  ) {
+    return this.itemsService.update(id, payload);
+  }
+
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.itemsService.remove(+id);
   }
 }
