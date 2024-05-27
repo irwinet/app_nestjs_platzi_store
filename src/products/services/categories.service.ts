@@ -23,7 +23,8 @@ export class CategoriesService {
   }
 
   async findOne(id: number) {
-    const category = await this.categoryRepo.findOne(id, {
+    const category = await this.categoryRepo.findOne({
+      where: { id },
       relations: ['products'],
     });
     if (!category) {
@@ -38,7 +39,9 @@ export class CategoriesService {
   }
 
   async update(id: number, payload: UpdateCategoryDto) {
-    const categoryUpdate = await this.categoryRepo.findOne(id);
+    const categoryUpdate = await this.categoryRepo.findOne({
+      where: { id },
+    });
     this.categoryRepo.merge(categoryUpdate, payload);
 
     return this.categoryRepo.save(categoryUpdate);
