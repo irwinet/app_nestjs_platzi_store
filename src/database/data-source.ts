@@ -1,8 +1,11 @@
+import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  url: 'postgres://root:123456@localhost:5433/my_db',
+  url: process.env.DATABASE_URL,
   synchronize: false,
   logging: false,
   entities: ['./src/**/*.entity.ts'],
