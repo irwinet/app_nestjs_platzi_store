@@ -8,6 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { Order } from './order.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class OrderItem {
@@ -18,12 +19,14 @@ export class OrderItem {
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
+  @Exclude()
   createAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
+  @Exclude()
   updateAt: Date;
 
   @Column({ type: 'int' })
