@@ -7,6 +7,8 @@ import {
   IsNotEmpty,
   IsPositive,
   IsArray,
+  IsOptional,
+  Min,
 } from 'class-validator';
 
 export class CreateProductDto {
@@ -51,3 +53,13 @@ export class CreateProductDto {
 export class UpdateProductDto extends PartialType(
   OmitType(CreateProductDto, ['name']),
 ) {}
+
+export class FilterProductsDto {
+  @IsOptional()
+  @IsPositive()
+  limit: number;
+
+  @IsOptional()
+  @Min(0)
+  offset: number;
+}
